@@ -15,6 +15,7 @@
 *.launch
 .settings/
 aoxyWebService/target/*
+aoxyUI/node_modules/*
 *.jar
 
 # IDE - VSCode
