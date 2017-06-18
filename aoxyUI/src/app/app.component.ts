@@ -30,17 +30,11 @@ export class AppComponent {
      });
      return this.http.get(this.serviceURL, options)
       .map((response : Response) => {
-        response.headers.append('Access-Control-Allow-Origin', '*');
         return response;
       })
       .subscribe((response : Response) => {
-        data => {
-          let hello: Hello = response.json();
-          this.result = hello.content;
-        }
-        error => {
-          this.result = error;
-        }
+        let hello: Hello = response.json();
+        this.result = hello.content;
       });
   }
 }
