@@ -5,7 +5,7 @@
 /tmp
 
 # dependencies
-/node_modules
+*/node_modules
 
 # IDEs and editors
 /.idea
@@ -15,7 +15,6 @@
 *.launch
 .settings/
 aoxyWebService/target/*
-aoxyUI/node_modules/*
 *.jar
 
 # IDE - VSCode
