@@ -1,0 +1,98 @@
+#项目环境搭建
+AoxyNGUI的UI和后台服务分成了2个部分，在当前节点AoxyUI使用angular4搭建，后台服务则使用SpringBoot提供RESTFUL风格的URL请求模式。这两块就使用对应的框架来进行初始化。
+
+##Spring Boot搭建Restful Web Service
+相关的依赖在pom.xml文件中定义，通过Maven进行支持，这一部分只需要让开发环境支持maven并从公共代码仓库中下载对应的包即可。
+
+HelloWorld.java 是一个简单的Restful WebService，其中定义了类需要拦截的URL前缀"/services"，以及在方法中定义的对应的API
+
+```java
+@RestController
+@RequestMapping("/services")
+@CrossOrigin(origins = "*")
+public class HelloWorld {
+
+  //RequestParam定义了方法的参数定义，同时支持defaultValue的定义
+  @RequestMapping(value = "/hello", method = RequestMethod.GET)
+  public HelloBean sayHelloWordFrom(@RequestParam(value = "str", defaultValue = "hello") String from) {
+    String result = "Hello, world, from " + from;
+
+    System.out.println(result + " " + new Date());
+    return new HelloBean(result);
+  }
+}
+```
+
+* @CrossOrigin注解
+    由于Spring Boot服务默认启动在localhost:8080，而angular的服务启动在4200端口，当前浏览器不支持跨域的http请求，因此，需要在response中添加'Access-Control-Allow-Origin'属性，并将请求的URL对应的host地址添加到里面，以便浏览器完成请求过程。但这个配置只在测试环境下，也就是目前UI和后台在不同host下工作的情况，如果将UI对应的内容部署到Web服务器之后，这个配置就不需要了
+
+##Angular 4 环境搭建
+Angular的包依赖都需要node.js进行支持，因此需要先安装node.js在本机，项目相关的包定义都在AoxyUI项目中的package.json文件中定义。
+
+安装环境时，由于外网npm的连接速度较慢，需要安装国内的npm包管理服务镜像
+```javascript 
+npm -g install cnpm
+```
+其次定位到AoxyUI项目所在根目录，安装package.json中所定义的包。
+```javascript
+cnpm install
+```
+安装到位后，查看angular对应组件的版本是否正确
+```javascript
+ng --version
+```
+确保其中有angular/cli的包即可，整个服务就可以跑起来，angular/cli集成了若干工具，方便angular整个的build、测试、本地部署的流程。在确定环境配置无误后，就可以使用serve命令启动本地服务，Webpack默认的端口是localhost:4200
+```javascript
+ng serve --prod --aot
+```
+* --prod命令代表产品模式，会预先部署编译好的js
+* --aot代表ahead of time，预编译
+
+##基本的Restful服务端请求
+以下是一个最基本的http服务端请求的例子，用restful风格的请求模式实现前后端的分离。
+```typescript
+import { Injectable,Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/Rx';
+import { URLSearchParams, RequestOptions, Http, Headers, Response } from '@angular/http';
+import { Hello } from './Hello-model';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+
+@Injectable()
+export class AppComponent {
+  title = 'Hello Rest Test';
+  name:string = "";
+  result = "";
+
+  //这里临时写的上文helloworld服务中定义的API
+  public serviceURL = "http://localhost:8080/services/hello"
+  console: Console;
+
+  constructor(public http:Http){}
+
+  public click() {
+     //这里定义传参，参数在hello的定义中有
+     let param : URLSearchParams = new URLSearchParams();
+     param.append('str', this.name);
+     let options : RequestOptions = new RequestOptions({
+        search : param,
+     });
+     return this.http.get(this.serviceURL, options)
+      .map((response : Response) => {
+        return response;
+      })
+      .subscribe((response : Response) => {
+        //预先定义返回类型，采用json的方式进行序列化，从而将response中的数据转化成预设的对象类型
+        let hello: Hello = response.json();
+        this.result = hello.content;
+      });
+  }
+}
+
+```
