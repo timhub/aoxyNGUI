@@ -1,7 +1,7 @@
-#项目环境搭建
+# 项目环境搭建
 AoxyNGUI的UI和后台服务分成了2个部分，在当前节点AoxyUI使用angular4搭建，后台服务则使用SpringBoot提供RESTFUL风格的URL请求模式。这两块就使用对应的框架来进行初始化。
 
-##Spring Boot搭建Restful Web Service
+## Spring Boot搭建Restful Web Service
 相关的依赖在pom.xml文件中定义，通过Maven进行支持，这一部分只需要让开发环境支持maven并从公共代码仓库中下载对应的包即可。
 
 HelloWorld.java 是一个简单的Restful WebService，其中定义了类需要拦截的URL前缀"/services"，以及在方法中定义的对应的API
@@ -26,7 +26,7 @@ public class HelloWorld {
 * @CrossOrigin注解
     由于Spring Boot服务默认启动在localhost:8080，而angular的服务启动在4200端口，当前浏览器不支持跨域的http请求，因此，需要在response中添加'Access-Control-Allow-Origin'属性，并将请求的URL对应的host地址添加到里面，以便浏览器完成请求过程。但这个配置只在测试环境下，也就是目前UI和后台在不同host下工作的情况，如果将UI对应的内容部署到Web服务器之后，这个配置就不需要了
 
-##Angular 4 环境搭建
+## Angular 4 环境搭建
 Angular的包依赖都需要node.js进行支持，因此需要先安装node.js在本机，项目相关的包定义都在AoxyUI项目中的package.json文件中定义。
 
 安装环境时，由于外网npm的连接速度较慢，需要安装国内的npm包管理服务镜像
@@ -48,7 +48,7 @@ ng serve --prod --aot
 * --prod命令代表产品模式，会预先部署编译好的js
 * --aot代表ahead of time，预编译
 
-##基本的Restful服务端请求
+## 基本的Restful服务端请求
 以下是一个最基本的http服务端请求的例子，用restful风格的请求模式实现前后端的分离。
 ```typescript
 import { Injectable,Component } from '@angular/core';
