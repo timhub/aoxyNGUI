@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/Rx';
 import { URLSearchParams, RequestOptions, Http, Headers, Response } from '@angular/http';
-import { Hello } from './Hello-model';
 
 @Component({
   selector: 'app-root',
@@ -13,28 +12,5 @@ import { Hello } from './Hello-model';
 
 @Injectable()
 export class AppComponent {
-  title = 'Hello Rest Test';
-  name:string = "";
-  result = "";
-
-  public serviceURL = "http://localhost:8080/services/hello"
-  console: Console;
-
-  constructor(public http:Http){}
-
-  public click() {
-     let param : URLSearchParams = new URLSearchParams();
-     param.append('str', this.name);
-     let options : RequestOptions = new RequestOptions({
-        search : param,
-     });
-     return this.http.get(this.serviceURL, options)
-      .map((response : Response) => {
-        return response;
-      })
-      .subscribe((response : Response) => {
-        let hello: Hello = response.json();
-        this.result = hello.content;
-      });
-  }
+  
 }
