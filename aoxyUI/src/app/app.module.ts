@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
@@ -18,7 +18,8 @@ import { appRoutes } from './app.routes';
     BrowserModule,
     FormsModule,
     HttpModule,
-    appRoutes,
+    RouterModule,
+    // appRoutes,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
