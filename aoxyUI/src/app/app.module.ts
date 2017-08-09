@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { appRoutes } from './app.routes';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

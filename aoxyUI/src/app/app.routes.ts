@@ -1,18 +1,23 @@
 import {UserLoginComponent} from './user/user-login/user-login.component'
 import {AppComponent} from './app.component'
+import {DashboardComponent} from './dashboard/dashboard.component'
 
 export const appRoutes = [
     {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'dashboard',
         pathMatch: 'full'
     },
-    {
-        path: 'home',
-        component: AppComponent
-    },
+    // {
+    //     path: 'home',
+    //     component: AppComponent
+    // },
     {
         path: 'login',
         component: UserLoginComponent
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent
     }
 ];
