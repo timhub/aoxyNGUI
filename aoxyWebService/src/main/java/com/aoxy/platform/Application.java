@@ -1,9 +1,12 @@
-package example;
+package com.aoxy.platform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * Main class for starting spring boot service.
+ */
 @ComponentScan
 @EnableAutoConfiguration
 public class Application {

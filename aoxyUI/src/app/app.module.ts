@@ -8,16 +8,20 @@ import { UserComponent } from './user/user.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { appRoutes } from './app.routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BreedingComponent } from './breeding/breeding.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     UserLoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    BreedingComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     RouterModule,
